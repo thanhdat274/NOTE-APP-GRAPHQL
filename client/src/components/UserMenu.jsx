@@ -11,7 +11,6 @@ export default function UserMenu() {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const open = Boolean(anchorEl);
-  // console.log({user})
 
   const handleLogout = () => {
     auth.signOut();
@@ -22,7 +21,7 @@ export default function UserMenu() {
   };
 
   const handleClick = (e) => {
-    setAnchorEl(e.currentTarget);
+    setAnchorEl(e?.currentTarget);
   };
   return (
     <>

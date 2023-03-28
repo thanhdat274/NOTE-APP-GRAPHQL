@@ -8,7 +8,7 @@ import { graphQLRequest } from '../utils/request';
 
 export default function Login() {
   const auth = getAuth();
-  // const navigate = useNavigate();
+
   const { user } = useContext(AuthContext);
 
   const handleLoginWithGoogle = async () => {
@@ -30,7 +30,6 @@ export default function Login() {
         name: displayName,
       },
     });
-    console.log('register', { data });
   };
 
   if (localStorage.getItem('accessToken')) {

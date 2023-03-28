@@ -9,8 +9,6 @@ import UserMenu from '../components/UserMenu';
 export default function Home() {
   const { folders } = useLoaderData();
 
-  // console.log('[HomePage]',{data});
-
   return (
     <>
       <Typography variant='h4' sx={{ mb: '20px' }}>

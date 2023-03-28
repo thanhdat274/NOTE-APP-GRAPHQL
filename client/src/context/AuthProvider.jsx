@@ -14,29 +14,26 @@ export default function AuthProvider({ children }) {
 
   useEffect(() => {
     const unsubcribed = auth.onIdTokenChanged((user) => {
-      console.log('[From AuthProvider]', { user });
       if (user?.uid) {
         setUser(user);
-        if (user.accessToken !== localStorage.getItem('accessToken')) {
-          localStorage.setItem('accessToken', user.accessToken);
+        if (user?.accessToken !== localStorage.getItem('accessToken')) {
+          localStorage.setItem('accessToken', user?.accessToken);
           window.location.reload();
         }
         setIsLoading(false);
         return;
       }
-
-      // reset user info
-      console.log('reset');
-      setIsLoading(false);
-      setUser({});
-      localStorage.clear();
-      navigate('/login');
+      if (!user?.accessToken) {
+        setIsLoading(false);
+        setUser({});
+        localStorage.clear();
+        navigate('/login');
+      }
     });
 
     return () => {
       unsubcribed();
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [auth]);
 
   return (

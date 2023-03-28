@@ -23,27 +23,22 @@ export default function NewFolder() {
   const popupName = searchParams.get('popup');
 
   const handleOpenPopup = () => {
-    // setOpen(true);
     setSearchParams({ popup: 'add-folder' });
   };
   const handleClose = () => {
-    // setOpen(false);
     setNewFolderName('');
     navigate(-1);
   };
   const handleNewFolderNameChange = (e) => {
-    setNewFolderName(e.target.value);
+    setNewFolderName(e?.target?.value);
   };
 
   const handleAddNewFolder = async () => {
-    const { addFolder } = await addNewFolder({ name: newFolderName });
-    console.log({ addFolder });
-
+    await addNewFolder({ name: newFolderName });
     handleClose();
   };
 
   useEffect(() => {
-    console.log({popupName})
     if (popupName === 'add-folder') {
       setOpen(true);
       return;

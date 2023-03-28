@@ -27,8 +27,6 @@ export default function NoteList() {
   const submit = useSubmit();
   const navigate = useNavigate();
 
-  console.log('[NoteLIST]', { folder });
-
   useEffect(() => {
     if (noteId) {
       setActiveNoteId(noteId);
@@ -38,7 +36,6 @@ export default function NoteList() {
     if (folder?.notes?.[0]) {
       navigate(`note/${folder?.notes[0]?.id}`);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [noteId, folder?.notes]);
 
   const handleAddNewNote = () => {

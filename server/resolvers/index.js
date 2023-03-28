@@ -21,12 +21,10 @@ export const resolvers = {
       }).sort({
         updatedAt: 'desc',
       });
-      console.log({ folders, context });
       return folders;
     },
     folder: async (parent, args) => {
       const folderId = args.folderId;
-      console.log({ folderId });
       const foundFolder = await FolderModel.findById(folderId);
       return foundFolder;
     },
@@ -34,7 +32,6 @@ export const resolvers = {
       const noteId = args.noteId;
       const note = await NoteModel.findById(noteId);
       return note;
-      // return fakeData.notes.find((note) => note.id === noteId);
     },
   },
   Folder: {
@@ -46,15 +43,12 @@ export const resolvers = {
       return author;
     },
     notes: async (parent, args) => {
-      console.log({ parent });
       const notes = await NoteModel.find({
         folderId: parent.id,
       }).sort({
         updatedAt: 'desc',
       });
-      console.log({ notes });
       return notes;
-      // return fakeData.notes.filter((note) => note.folderId === parent.id);
     },
   },
   Mutation: {
@@ -70,7 +64,6 @@ export const resolvers = {
     },
     addFolder: async (parent, args, context) => {
       const newFolder = new FolderModel({ ...args, authorId: context.uid });
-      console.log({ newFolder });
       pubsub.publish('FOLDER_CREATED', {
         folderCreated: {
           message: 'A new folder created',

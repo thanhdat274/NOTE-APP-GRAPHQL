@@ -18,7 +18,7 @@ export default function Note() {
     return EditorState.createEmpty();
   });
 
-  const [rawHTML, setRawHTML] = useState(note.content);
+  const [rawHTML, setRawHTML] = useState(note?.content);
 
   useEffect(() => {
     const blocksFromHTML = convertFromHTML(note?.content);
@@ -29,8 +29,6 @@ export default function Note() {
     setEditorState(EditorState.createWithContent(state));
   }, [note?.id]);
 
-  console.log({ location })
-
   useEffect(() => {
     debouncedMemorized(rawHTML, note, location?.pathname);
   }, [rawHTML, location?.pathname]);
@@ -38,7 +36,6 @@ export default function Note() {
   const debouncedMemorized = useMemo(() => {
     return debounce((rawHTML, note, pathname) => {
       if (rawHTML === note.content) return;
-
       submit({ ...note, content: rawHTML }, {
         method: 'post',
         action: pathname

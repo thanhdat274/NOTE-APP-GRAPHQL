@@ -25,7 +25,7 @@ export const addNewFolder = async (newFolder) => {
 
   const data = await graphQLRequest({
     query,
-    variables: { name: newFolder.name },
+    variables: { name: newFolder?.name },
   });
 
   return data;

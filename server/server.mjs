@@ -61,7 +61,6 @@ const server = new ApolloServer({
 await server.start();
 
 const authorizationJWT = async (req, res, next) => {
-  console.log({ authorization: req.headers.authorization });
   const authorizationHeader = req.headers.authorization;
 
   if (authorizationHeader) {
@@ -70,17 +69,14 @@ const authorizationJWT = async (req, res, next) => {
     getAuth()
       .verifyIdToken(accessToken)
       .then((decodedToken) => {
-        console.log({ decodedToken });
         res.locals.uid = decodedToken.uid;
         next();
       })
       .catch((err) => {
-        console.log({ err });
         return res.status(403).json({ message: 'Forbidden', error: err });
       });
   } else {
     next();
-    // return res.status(401).json({ message: 'Unauthorized' });
   }
 };
 
@@ -104,5 +100,5 @@ mongoose
   .then(async () => {
     console.log('Connected to DB');
     await new Promise((resolve) => httpServer.listen({ port: PORT }, resolve));
-    console.log(`Server is running on ${PORT}`);
+    console.log(`🚀 Server ready at http://localhost:${PORT}`);
   });

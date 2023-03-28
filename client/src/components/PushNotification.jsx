@@ -17,9 +17,7 @@ const query = `subscription PushNotification {
 export default function PushNotification() {
   const [invisible, setInvisible] = useState(true);
   const [notification, setNotification] = useState('');
-
   const [anchorEl, setAnchorEl] = useState(null);
-
   const open = Boolean(anchorEl);
   const handleClose = () => {
     setAnchorEl(null);
@@ -29,7 +27,7 @@ export default function PushNotification() {
 
   const handleClick = (e) => {
     if (notification) {
-      setAnchorEl(e.currentTarget);
+      setAnchorEl(e?.currentTarget);
     }
   };
 
@@ -37,10 +35,8 @@ export default function PushNotification() {
     (async () => {
       const onNext = (data) => {
         setInvisible(false);
-
         const message = data?.data?.notification?.message;
         setNotification(message);
-        console.log('[PUSH NOTIFICATION]', { data });
       };
 
       await new Promise((resolve, reject) => {
