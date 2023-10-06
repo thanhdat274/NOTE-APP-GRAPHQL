@@ -13,7 +13,7 @@ export default function AuthProvider({ children }) {
   const auth = getAuth();
 
   useEffect(() => {
-    const unsubcribed = auth.onIdTokenChanged((user) => {
+    const unsubcribed = auth?.onIdTokenChanged((user) => {
       if (user?.uid) {
         setUser(user);
         if (user?.accessToken !== localStorage.getItem('accessToken')) {
